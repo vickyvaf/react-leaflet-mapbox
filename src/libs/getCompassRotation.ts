@@ -8,7 +8,6 @@ export function getCompassRotation(
   const toRadians = (angle: number) => angle * (Math.PI / 180);
 
   // Calculate differences in coordinates
-  const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
 
   // Calculate bearing
