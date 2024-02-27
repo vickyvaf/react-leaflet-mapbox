@@ -5,7 +5,6 @@ import { memo, useEffect, useState } from "react";
 import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import TruckIcon from "../assets/track-icon.png";
-import { Distance } from "./Distance";
 import { getCompassRotation } from "../libs/getCompassRotation";
 import dataTrackpoint from "../trackpoint1.json";
 import dataTrackpoint2 from "../trackpoint2.json";
@@ -48,24 +47,38 @@ export const Heatmap = memo(() => {
   );
 });
 
-export default function Map() {
+let shiftCount = 0;
+export default function Map({
+  setProgress,
+  isPaused,
+}: {
+  setProgress: (value: number) => void;
+  isPaused: boolean;
+}) {
   const [markers, setMarkers] = useState<[number, number][] | []>(
     dataTrackpoint2 as [number, number][]
   );
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (isPaused) return;
+
+      shiftCount += 1;
+
       setMarkers((prevMarker) => {
         const newMarker = [...prevMarker];
 
         newMarker.shift();
 
+        const percentage = (shiftCount / newMarker.length) * 100;
+        setProgress(percentage);
+
         return newMarker;
       });
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
 
   const compassRotation = getCompassRotation(
     markers[0][0],
@@ -85,8 +98,6 @@ export default function Map() {
       scrollWheelZoom={true}
       style={{ height: "100vh", width: "100%" }}
     >
-      <Distance />
-
       <Heatmap />
 
       <TileLayer url="https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoid2FoeXVicnIiLCJhIjoiY2xxZzFlbXJnMGo0cjJqcWN1ZGJiN2E5OSJ9.PmqbfXCNKcByO32TrN_vCA" />
