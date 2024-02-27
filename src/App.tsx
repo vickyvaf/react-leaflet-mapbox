@@ -1,14 +1,14 @@
 import L from "leaflet";
+import "leaflet-rotatedmarker";
+import "leaflet/dist/leaflet.css";
 import { memo, useEffect, useState } from "react";
-import { MapContainer, Marker, Polyline, TileLayer } from "react-leaflet";
-import { Distance } from "./components/Distance";
-import dataTrackpoint from "./trackpoint1.json";
-import dataTrackpoint2 from "./trackpoint2.json";
-import { getCompassRotation } from "./libs/getCompassRotation";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3";
 import TruckIcon from "./assets/track-icon.png";
-import "leaflet/dist/leaflet.css";
-import "leaflet-rotatedmarker";
+import { Distance } from "./components/Distance";
+import { getCompassRotation } from "./libs/getCompassRotation";
+import dataTrackpoint from "./trackpoint1.json";
+import dataTrackpoint2 from "./trackpoint2.json";
 
 const CustomIconMarker = new L.Icon({
   iconUrl: TruckIcon,
@@ -30,10 +30,10 @@ export const Heatmap = memo(() => {
       fitBoundsOnLoad
       fitBoundsOnUpdate
       points={dataTrackpoint}
-      longitudeExtractor={(point) => point[1]}
-      latitudeExtractor={(point) => point[0]}
+      longitudeExtractor={(point: number[]) => point[1]}
+      latitudeExtractor={(point: number[]) => point[0]}
       key={Math.random() + Math.random()}
-      intensityExtractor={(point) => parseFloat(point[2])}
+      intensityExtractor={(point: string[]) => parseFloat(point[2])}
       {...heatmapOptions}
       gradient={{
         1: "#FE433C",
