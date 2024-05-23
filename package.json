@@ -16,6 +16,7 @@
     "leaflet-rotatedmarker": "0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-leaflet-drift-marker": "^4.0.0",
     "react-leaflet-heatmap-layer-v3": "^3.0.3-beta-1"
   },
   "devDependencies": {
