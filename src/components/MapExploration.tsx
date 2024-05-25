@@ -2,8 +2,7 @@ import L, { LatLngExpression } from "leaflet";
 import "leaflet-rotatedmarker";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, useMapEvent } from "react-leaflet";
-import DriftMarker from "react-leaflet-drift-marker";
+import { MapContainer, Marker, TileLayer, useMapEvent } from "react-leaflet";
 import TruckIcon from "../assets/track-icon.png";
 import { calculateBearing } from "../libs/bearing";
 import dataTrackpoint from "../trackpoint1.json";
@@ -106,8 +105,8 @@ export function MapExploration() {
         ref={markerRef}
       /> */}
 
-      <DriftMarker
-        duration={1000}
+      <Marker
+        // duration={1000}
         position={
           markers[0] || [
             dataTrackpoint[dataTrackpoint.length - 1][0],

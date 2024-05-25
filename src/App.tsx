@@ -7,7 +7,7 @@ export default function App() {
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  return <MapExploration />;
+  // return <MapExploration />;
 
   return (
     <div className="relative w-full h-screen">
